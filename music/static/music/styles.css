@@ -216,6 +216,7 @@ body {
     display: grid;
     grid-template-columns: 0.15fr 1fr;
     border: 1px solid #154655;
+    box-shadow: 2px 2px 1px 1px rgba(67, 177, 228, 0.2);
 }
 
 .song-play {
