@@ -1,0 +1,33 @@
+{% extends "music/layout.html" %}
+
+{% block body %}
+    <div class="login_header"> 
+    </div>
+
+    <div class="login_form">
+        <h2 class="login_title">Log in</h2>
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <p>Username</p>
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <p>Password</p>
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+
+        Make a new account &#128071 <a href="{% url 'register' %}">Create account</a>
+
+    </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "music/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+    <script src="{% static 'music/create.js' %}"></script>
+
+    <div class="header">
+        <h3>Create your playlist</h3>
+    </div>
+
+    <div class="create">
+        <form id="create-form">
+            <div class="form-group">
+              <label for="inputAddress"><b>Name</b></label>
+              <input type="text" class="form-control" id="playlist_name" placeholder="Name of your playlist">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" id="playlist_description" rows="3" placeholder="Describe your playlist"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="hidden" id="playlist_reach" data-playlist_reach="private">
+                <input type="button" id="playlist_public" onclick="changeButtons('public')" class="btn btn-outline-success" value="Public">
+                <input type="button" id="playlist_private" onclick="changeButtons('private')" class="btn btn-info" value="Private">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" id="playlist_collaborative" class="form-check-input" >
+                <label class="form-check-label" for="playlist_collaborative">Collaborative</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>    
+    </div>
+{% endblock %}

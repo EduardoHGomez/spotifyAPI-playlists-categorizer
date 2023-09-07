@@ -1,0 +1,7 @@
+In order to run the server, the lastest version of pip is needed for installing the Request library with the next command:
+
+python -m pip install requests
+
+Also the app uses rest_framework to give specific responses back to the front-end with fetch calls, it can be installed with:
+
+pip install djangorestframework

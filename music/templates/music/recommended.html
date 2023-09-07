@@ -1,0 +1,33 @@
+
+{% extends "music/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <script src="{% static 'music/recommended.js' %}"></script>
+    
+    <h5 style="text-align: center;">Based on your most listened genres</h5>
+    
+
+    <div class="upper-playlists">
+        {% for playlist in playlists %}        
+        <div class="card" style="width: 18rem; background-color: {{playlist.background_color}};" id="stored_playlist_{{playlist.playlist_id}}"
+        data-primary_color="{{playlist.background_color}}" data-secondary_color="{{playlist.secondary_color}}">
+            <div class="card-body">
+                <img class="card-img-top" src="{{playlist.image}}"></img>
+                <h5 class="card-title"><a href="{% url 'show_playlist' playlist.playlist_id %}">{{playlist.name}}</a></h5>
+                <p class="card-text">{{playlist.description}}</p>
+                <p class="card-text"><b>Creator: </b>{{playlist.creator}}</p>
+                <div class="playlist_tags_span">
+                    {% for tag in playlist.related_playlists.all %}
+                        <span><a href="{%url 'show_explore_category' tag.category %}">{{tag.category}}</a></span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}        
+    </div>
+
+
+
+
+{% endblock %}

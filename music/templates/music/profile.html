@@ -1,0 +1,71 @@
+{% extends "music/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div class="profile-background">
+        <div class="profile-background-top">
+            <div class="profile-background-top-image">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png">
+
+            </div>
+        </div>
+        <div class="profile-background-bottom">
+            <h4 id="sessionName"></h4>
+            <br>
+            <b>Country: </b><span id="pais"></span>
+            <br>
+            <b>Followers: </b><span id="seguidores"></span>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="collapse-buttons">
+        <button id="stored_button" class="show-button">
+            <h4 style="color: #1b4d4d">&#128190 Your stored playlists &#128190</h4>
+        </button>
+        <button id="spotify_button" class="show-button">
+            <h4 style="color: #5C8374">&#127926 Your spotify account playlists &#127926</h4>
+        </button>
+    </div>
+
+    <script src="{% static 'music/profile.js' %}" ></script>
+
+    <div id="stored_playlists" data-status="hidden">
+        <p style="font-size: 125%">These are your playlists stored locally. The users on this app will be able to follow your playlists. The playlists that your previously
+            saved and that you follow will be shown here.
+        </p>
+        <div class="upper-playlists">
+            {% for playlist in playlists %}        
+            <div class="card" style="width: 18rem" id="stored_playlist_{{playlist.playlist_id}}"
+            data-primary_color="{{playlist.background_color}}" data-secondary_color="{{playlist.secondary_color}}">
+                <div class="card-body">
+                    <img class="card-img-top" src="{{playlist.image}}"></img>
+                    <h5 class="card-title"><a href="{% url 'show_playlist' playlist.playlist_id %}">{{playlist.name}}</a></h5>
+                    <p class="card-text">{{playlist.description}}</p>
+                    <div class="playlist_tags_span">
+                        {% for tag in playlist.related_playlists.all %}
+                            <span>{{tag.category}}</span>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <button onclick="updateFollow('{{playlist.playlist_id}}')" class="btn btn-outline-warning btn-sm"
+                    data-status='unfollow' id="playlist_{{playlist.playlist_id}}">Unfollow</button>
+                </div>
+            </div>
+            {% endfor %}        
+        </div>
+    </div>
+
+    <div id="spotify_playlists" data-status="hidden">
+        <p style="font-size: 125%">Load all your playlists from Spotify and select those that you want to make public on this app.
+            Those playlists that you follow will be available for everyone to follow on spotify. Keep in mind that your private playlists
+            will be also available to follow.
+        <button id="synchronize" type="button" onclick="loadPlaylists()" class="btn btn-success btn-sm">Synchronize</button>
+        </p>
+
+        <div class="playlists" data-offset="1">
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "music/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <script src="{% static 'music/playlist.js' %}"></script>
+
+    <div class="playlist_header">
+        <h3 style="color: #213555">{{playlist.name}}</h3>
+    </div>
+
+    <div class="playlist_view">
+        <div data-color={{color1}} data-color2="{{color2}}"
+        id="playlist_image_div" style="border: 2px solid {{color2}}" >
+            <div class="playlist_image">
+                <img src="{{playlist.image}}">
+            </div>
+        </div>
+
+        <div class="playlist_details" style="border: 2px solid {{color}}">
+            <div class="playlist_details_info">
+                <p><b style="color: #5C8984">Description: </b><span id="description">{{playlist.description}}</span></p>
+                <p><b style="color: #E55807">Creator: </b>{{playlist.creator}}</p>
+                <p><b style="color: #4F709C">Public: </b><span id="public">{{playlist.is_public}}</span></p>
+                <p><span id="playlist_id" hidden>{{playlist.playlist_id}}</span></p>
+                {% if request.user.spotify_id == playlist.creator_id %}
+                    <a href="javascript:editPlaylist()"><i class="bi bi-pencil-square"></i> Edit</a>
+                {% endif %}
+            </div>
+
+            <div class="playlist_edit">
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" id="playlist_description" rows="3" placeholder="Describe your playlist"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="playlist_reach" data-playlist_reach="{{playlist.is_public}}">
+                    <input type="button" id="playlist_public" onclick="changeButtons('public')" class="btn btn-outline-warning" value="Public">
+                    <input type="button" id="playlist_private" onclick="changeButtons('private')" class="btn btn-info" value="Private">
+                </div>
+                <div class="playlist_color">
+                    <label for="hext_color_input">Primary color of your playlist</label>
+                    <input id="hex_color_input" type="color" value="{{color}}">
+                    <br>
+                    <label for="hex_color_input_second">Secondary color of your playlist</label>
+                    <input id="hex_color_input_second" type="color" value="{{color2}}">
+                </div>
+                <div>
+                    <button onclick="updatePlaylist('{{playlist.playlist_id}}')" class="btn btn-success">Save</button>
+                    <button onclick="cancelEdit()" class="btn btn-outline-danger">Cancel</button>
+                </div>
+            </div>
+
+            <div class="playlist_tags">
+                <h5 style="color: #116A7B">Tags</h5>
+                    <input type="text" class="form-control" id="input_tags" placeholder="Press Enter to save tag" style="margin: 5px;">
+                <div class="playlist_tags_span">
+                    {% for tag in tags %}
+                    <span data-category="{{tag.category}}">
+                        <a href="{%url 'show_explore_category' tag.category %}">{{tag.category}}</a>
+                        {% if request.user.spotify_id == playlist.creator_id %}
+                            <a href='javascript:deleteTag("{{tag.category}}")'> x </a>
+                        {% endif %}
+                    </span>
+                    {% endfor %}
+                </div>
+                {% if request.user.spotify_id == playlist.creator_id %}
+                    <button onclick="addTags()" id="addTagsButton" class="btn btn-outline-info btn-sm">Add tags</button>
+                    <button onclick="updateButtons()" id="storeTagsButton" class="btn btn-outline-warning btn-sm">Save</button>
+                {% endif %}
+            </div>
+
+            <hr>
+            {% if user.is_authenticated %}
+                <button onclick="updateFollow('{{playlist.playlist_id}}')" class="btn btn-info btn-sm"
+                data-status='follow' id="playlist_{{playlist.playlist_id}}">Add this playlist to my spotify</button>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div id="songs_view">
+    </div>
+{% endblock %}

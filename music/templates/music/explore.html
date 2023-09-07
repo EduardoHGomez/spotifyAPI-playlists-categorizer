@@ -1,0 +1,27 @@
+{% extends "music/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <script src="{% static 'music/explore.js' %}"></script>
+
+    <form id="filter-form">
+        <div class="filter-form-div">
+            <label for="categories" class="filter-label">Looking for new genres? &#128269</label>
+            <input id="input_tags" list="categories" class="input_options form-control w-75">
+            
+            <datalist class="datalist_options" id="categories">
+                {% for tag in tags %}
+                    <option value="{{tag.category}}">{{tag.category}}</option>
+                {% endfor %}
+            </datalist>
+
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </form>
+
+    <div class="filters">
+    </div>
+
+    <div class="playlists">
+    </div>
+{% endblock %}
