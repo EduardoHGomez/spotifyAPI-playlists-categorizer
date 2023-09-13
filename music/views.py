@@ -569,6 +569,7 @@ def play_song(request):
 
     response = put('https://api.spotify.com/v1/me/player/play', headers=headers, data=json.dumps(data))
 
-    print(response)
+    if (response.status_code == 200):
+        print(response.json())
 
     return JsonResponse({'message': 'playing'}, status=200)
