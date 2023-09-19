@@ -11,6 +11,12 @@ class SpotifyToken(models.Model):
     expires_in = models.DateTimeField()
     token_type = models.CharField(max_length=50)
 
+    def serialize(self):
+        return {
+            "user": self.user,
+            "created_at": self.created_at,
+        }
+
 
 class User(AbstractUser):
     spotify_id = models.CharField(max_length=50, default="No_id")
