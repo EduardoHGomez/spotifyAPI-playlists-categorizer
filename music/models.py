@@ -15,6 +15,10 @@ class SpotifyToken(models.Model):
         return {
             "user": self.user,
             "created_at": self.created_at,
+            "refresh_token": self.refresh_token,
+            "access_token": self.access_token,
+            "expires_in": self.expires_in,
+            "token_type": self.token_type
         }
 
 
