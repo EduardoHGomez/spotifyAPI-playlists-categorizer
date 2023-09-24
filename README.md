@@ -1,6 +1,15 @@
 ## Home
 ![Alt text](screenshots/Home.gif?raw=true "Home page")
 
+## Profile
+![Alt text](screenshots/Profile.gif?raw=true "Profile page")
+
+## Explore 
+![Alt text](screenshots/Explore.gif?raw=true "Explore page")
+
+## Create a playlist
+![Alt text](screenshots/Create.PNG?raw=true "Explore page")
+
 ## Monthly overview of API Calls
 ![Alt text](image.png)
 
