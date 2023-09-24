@@ -1,3 +1,5 @@
+## Home
+![Alt text](screenshots/Home.gif?raw=true "Home page")
 
 ## Monthly overview of API Calls
 ![Alt text](image.png)
